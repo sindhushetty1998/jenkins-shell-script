@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from Git repository
+                https://github.com/sindhushetty1998/wartest.git
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Build the project using Maven
+                sh 'mvn clean package'
+            }
+        }
+    }
+    
+    triggers {
+        // Poll the Git repository for changes every minute
+        pollSCM('* * * * *')
+    }
+}
